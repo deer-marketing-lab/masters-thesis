@@ -18,7 +18,11 @@ site: bookdown::bookdown_site
 # The next two lines allow you to change the spacing in your thesis. You can 
 # switch out \onehalfspacing with \singlespacing or \doublespacing, if desired.
 header-includes:
-    - \usepackage{setspace}\onehalfspacing
+    - \linespread{1.25}
+    - \usepackage[tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in]{geometry}
+    - \usepackage{titlesec}
+    - \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Large}
+    - \titlespacing*{\chapter}{0pt}{-20pt}{40pt}
 
 # This will automatically install the {remotes} package and {tisemdown}
 # Change this to FALSE if you'd like to install them manually on your own.
@@ -33,12 +37,18 @@ output:
 #  tisemdown::thesis_word: default
 #  tisemdown::thesis_epub: default
 
+# If you are creating a PDF you'll need to write your preliminary content 
+# (e.g., abstract, acknowledgements) below or use code similar to line 25-26 
+# for the .RMD files. If you are NOT producing a PDF, delete or silence
+# lines 25-39 in this YAML header.
 abstract: '`r if(knitr:::is_latex_output()) paste(readLines(here::here("prelims", "00-abstract.Rmd")), collapse = "\n  ")`'
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab 
+# is needed on the line after the `|`.
 managementsummary: '`r if(knitr:::is_latex_output()) paste(readLines(here::here("prelims", "00-managementsummary.Rmd")), collapse = "\n  ")`'
 
 acknowledgements: |
   I want to thank a few people.
-
 # Specify the location of the bibliography below
 bibliography: bib/thesis.bib
 # Download your specific csl file and refer to it in the line below.
@@ -62,6 +72,28 @@ If you'd like to include a comment that won't be produced in your resulting file
 If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
 -->
 
+<<<<<<< HEAD
+=======
+<!--
+The acknowledgments, preface, dedication, and abstract are added into the PDF
+version automatically by inputting them in the YAML at the top of this file.
+Alternatively, you can put that content in files like 00--prelim.Rmd and
+00-abstract.Rmd like done below.
+-->
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-managementsummary.Rmd")}
+
+```
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00--prelim.Rmd")}
+
+```
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
+
+```
+
+>>>>>>> master
 <!-- The {.unnumbered} option here means that the introduction will be 
 "Chapter 0." You can also use {-} for no numbers on chapters.
 For your own thesis you should delete everything below this comment.
